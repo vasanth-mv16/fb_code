@@ -25,7 +25,7 @@ public class LikeServiceImpl implements LikeService {
      * </p>
      *
      * @param like Refer {@link Like} to create
-     * @return True if the like is created, otherwise false
+     * @return true, if the like is created, otherwise false
      */
     @Override
     public boolean create(Like like) {
@@ -64,7 +64,7 @@ public class LikeServiceImpl implements LikeService {
      * </p>
      *
      * @param likeId Refers the id for unlike the post
-     * @return True if the like is unliked, otherwise false
+     * @return true, if the like is unliked, otherwise false
      */
     @Override
     public boolean delete(Long likeId) {

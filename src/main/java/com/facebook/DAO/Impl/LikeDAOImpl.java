@@ -4,6 +4,7 @@ import com.facebook.DAO.LikeDAO;
 import com.facebook.DAOConnection.JDBCConnection;
 import com.facebook.model.Like;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class LikeDAOImpl implements LikeDAO {
 
     /**
      * <p>
-     * Default constructor for like DAO
+     * Enables the creation of only one object at a time
      * </p>
      */
     private LikeDAOImpl() {
@@ -56,11 +57,15 @@ public class LikeDAOImpl implements LikeDAO {
     public boolean create(final Like like) {
         final String sql = "insert into likes(user_id, post_id) values (?,?);";
 
-        try (PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = JDBCConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, like.getUserId());
             preparedStatement.setLong(2, like.getPostId());
             preparedStatement.executeUpdate();
+            connection.commit();
+            JDBCConnection.releaseConnection(connection);
 
             return true;
         } catch (final Exception exception) {
@@ -83,8 +88,10 @@ public class LikeDAOImpl implements LikeDAO {
         final Collection<Like> likes = new ArrayList<>();
         final String sql = "select * from likes where user_id = ?";
 
-        try (final PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = JDBCConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, userId);
             final ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -95,6 +102,8 @@ public class LikeDAOImpl implements LikeDAO {
                 like.setPostId(resultSet.getLong("post_id"));
                 like.setId(resultSet.getLong("id"));
                 likes.add(like);
+                connection.commit();
+                JDBCConnection.releaseConnection(connection);
             }
         } catch (final Exception exception) {
             exception.printStackTrace();
@@ -115,8 +124,10 @@ public class LikeDAOImpl implements LikeDAO {
     public Long getCount(final Long postId) {
         final String sql = "select post_id, count(post_id) as post_count from likes where post_id = ? group by post_id;";
 
-        try (final PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = JDBCConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, postId);
             final ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -125,6 +136,8 @@ public class LikeDAOImpl implements LikeDAO {
 
                 like.setPostId(resultSet.getLong("post_id"));
             }
+            connection.commit();
+            JDBCConnection.releaseConnection(connection);
         } catch (final Exception exception) {
             exception.printStackTrace();
         }
@@ -144,10 +157,14 @@ public class LikeDAOImpl implements LikeDAO {
     public boolean delete(Long likeId) {
         final String sql = "delete from likes where id = ?";
 
-        try (final PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = JDBCConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, likeId);
             preparedStatement.executeUpdate();
+            connection.commit();
+            JDBCConnection.releaseConnection(connection);
 
             return true;
         } catch (final Exception exception) {

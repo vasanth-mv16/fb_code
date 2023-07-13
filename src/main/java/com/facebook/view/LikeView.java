@@ -29,7 +29,6 @@ public class LikeView extends CommonView {
      * </p>
      */
     private LikeView() {
-
         likeController = LikeController.getInstance();
         userView = UserView.getInstance();
         postView = PostView.getInstance();
@@ -69,7 +68,7 @@ public class LikeView extends CommonView {
      *
      * @return Returns the like id of the user
      */
-    private Long getLikeId() {
+    private Long getLikeIdAndGenerate() {
         try {
             System.out.println("ENTER THE LIKE ID:");
             final Long likeId = Long.valueOf(SCANNER.nextLine());
@@ -81,7 +80,7 @@ public class LikeView extends CommonView {
             System.out.println("PLEASE ENTER AN INTEGER");
         }
 
-        return getLikeId();
+        return getLikeIdAndGenerate();
     }
 
     /**
@@ -91,7 +90,7 @@ public class LikeView extends CommonView {
      *
      * @return Returns the user id of the user
      */
-    private Long getUserId() {
+    private Long getUserIdAndGenerate() {
         try {
             System.out.println("ENTER THE USER ID:");
             final Long userId = Long.valueOf(SCANNER.nextLine());
@@ -103,7 +102,7 @@ public class LikeView extends CommonView {
             System.out.println("PLEASE ENTER AN INTEGER");
         }
 
-        return getUserId();
+        return getUserIdAndGenerate();
     }
 
     /**
@@ -155,7 +154,7 @@ public class LikeView extends CommonView {
 
         like.setId(getLikeIdGenerate());
         like.setUserId(userId);
-        like.setPostId(postView.getPostId());
+        like.setPostId(postView.getPostIdAndValidate());
         System.out.println(likeController.create(like) ? "LIKED" : "NOT LIKED");
     }
 
@@ -165,7 +164,7 @@ public class LikeView extends CommonView {
      * </p>
      */
     private void get() {
-        System.out.println(likeController.get(getUserId()));
+        System.out.println(likeController.get(getUserIdAndGenerate()));
     }
 
     /**
@@ -174,7 +173,7 @@ public class LikeView extends CommonView {
      * </p>
      */
     private void getCount() {
-        Long postId = postView.getPostId();
+        Long postId = postView.getPostIdAndValidate();
         Long likeCount = likeController.getCount(postId);
 
         System.out.println("TOTAL LIKE FOR POST ID " + postId + ": " + likeCount);
@@ -186,6 +185,6 @@ public class LikeView extends CommonView {
      * </p>
      */
     private void delete() {
-        System.out.println(likeController.delete(getLikeId()) ? "POST UNLIKED" : "LIKE NOT REMOVE");
+        System.out.println(likeController.delete(getLikeIdAndGenerate()) ? "POST UNLIKED" : "LIKE NOT REMOVE");
     }
 }

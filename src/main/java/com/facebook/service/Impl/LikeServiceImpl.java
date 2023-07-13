@@ -83,11 +83,11 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public boolean delete(Long likeId) {
-        final Like like = get(likeId);
-
-        if (null != like) {
-            return LIKE_LIST.remove(like);
-        }
-        return false;
+//        final Like like = get(likeId);
+//
+//        if (null != like) {
+//            return LIKE_LIST.remove(like);
+//        }
+       return false;
     }
 }

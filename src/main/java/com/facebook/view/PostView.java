@@ -33,7 +33,6 @@ public class PostView extends CommonView {
      * </p>
      */
     private PostView() {
-
         userView = UserView.getInstance();
         likeView = LikeView.getInstance();
         commentView = CommentView.getInstance();
@@ -64,7 +63,7 @@ public class PostView extends CommonView {
      *
      * @return Returns the post id of the user
      */
-    public Long getPostId() {
+    public Long getPostIdAndValidate() {
         try {
             System.out.println("ENTER THE POST ID:");
             final Long postId = Long.valueOf(SCANNER.nextLine());
@@ -76,7 +75,7 @@ public class PostView extends CommonView {
             System.out.println("PLEASE ENTER AN INTEGER");
         }
 
-        return getPostId();
+        return getPostIdAndValidate();
     }
 
     /**
@@ -206,7 +205,7 @@ public class PostView extends CommonView {
      * @return Returns {@link Post} of the user
      */
     private Post get() {
-        final Post post = postController.get(getPostId());
+        final Post post = postController.get(getPostIdAndValidate());
 
         System.out.println(post);
 
@@ -248,6 +247,6 @@ public class PostView extends CommonView {
      * </p>
      */
     private void delete() {
-        System.out.println(postController.delete(getPostId()) ? "SUCCESSFULLY DELETED" : "NOT DELETED");
+        System.out.println(postController.delete(getPostIdAndValidate()) ? "SUCCESSFULLY DELETED" : "NOT DELETED");
     }
 }

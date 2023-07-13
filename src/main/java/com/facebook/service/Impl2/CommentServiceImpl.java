@@ -8,13 +8,14 @@ import com.facebook.service.CommentService;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentDAO COMMENT_DAO_IMPL = CommentDAOImpl.getInstance();
+
     /**
      * <p>
      * Checks the comment is created
      * </p>
      *
      * @param comment Refer {@link Comment} to create
-     * @return boolean - True if the comment is created, otherwise false
+     * @return true, if the comment is created, otherwise false
      */
     @Override
     public boolean create(Comment comment) {
@@ -27,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
      * </p>
      *
      * @param id Refers the id for delete the comment
-     * @return True if the comment is deleted, otherwise false
+     * @return true, if the comment is deleted, otherwise false
      */
     @Override
     public boolean delete(Long id) {

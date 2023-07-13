@@ -152,15 +152,4 @@ public class UserValidation {
         return userId.matches("[\\d]");
     }
 
-    /**
-     * <p>
-     * Validates the gender of the user
-     * </p>
-     *
-     * @param gender Represents the gender of the user
-     * @return Returns {@link User.Gender} for the user1
-     */
-    public User.Gender validateGender(final String gender) {
-        return User.Gender.valueOf(gender);
-    }
 }

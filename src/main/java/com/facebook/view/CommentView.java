@@ -27,7 +27,6 @@ public class CommentView extends CommonView {
      * </p>
      */
     private CommentView() {
-
         commentController = CommentController.getInstance();
         userView = UserView.getInstance();
         postView = PostView.getInstance();
@@ -59,6 +58,7 @@ public class CommentView extends CommonView {
     private Long getCommentIdGenerate() {
         return id++;
     }
+
     /**
      * <p>
      * Shows the menu details for the user to comment the post
@@ -98,7 +98,7 @@ public class CommentView extends CommonView {
 
         comment.setId(getCommentIdGenerate());
         comment.setUserId(userId);
-        comment.setPostId(postView.getPostId());
+        comment.setPostId(postView.getPostIdAndValidate());
         comment.setMessage(getMessage());
         System.out.println(commentController.create(comment) ? "COMMENTED" : "NOT COMMENTED");
     }
@@ -109,7 +109,7 @@ public class CommentView extends CommonView {
      * </p>
      */
     private void delete() {
-        System.out.println(commentController.delete(getCommentId()) ? "COMMENT DELETED" : "NOT DELETED");
+        System.out.println(commentController.delete(getCommentIdAndGenerate()) ? "COMMENT DELETED" : "NOT DELETED");
     }
 
     /**
@@ -119,7 +119,7 @@ public class CommentView extends CommonView {
      *
      * @return Returns the comment id of the user
      */
-    private Long getCommentId() {
+    private Long getCommentIdAndGenerate() {
         try {
             System.out.println("ENTER THE COMMENT ID:");
             final Long commentId = Long.valueOf(SCANNER.nextLine());

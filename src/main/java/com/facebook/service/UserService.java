@@ -24,7 +24,7 @@ public interface UserService {
 
     /**
      * <p>
-     * Deletes user details.
+     * Deletes user details
      * </p>
      *
      * @param id Represents the id of the user to be deleted
