@@ -22,20 +22,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * Registers a user in the system
      * </p>
      *
-     * @param user The user object containing the information to be used for registration
+     * @param user Refers the user containing the information to be used for sign up
      * @return true if the user is successfully registered, false otherwise
      */
     public boolean signUp(final User user) {
         return AUTHENTICATION_DAO_IMPL.signUp(user);
     }
 
-
     /**
      * <p>
      * Authenticates a user by performing a sign-in operation
      * </p>
      *
-     * @param user The user object containing the need for authentication
+     * @param user Refers the user containing the need for authentication
      * @return true, if the user is successfully authenticated, false otherwise
      */
     public boolean signIn(final User user) {
@@ -44,10 +43,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     /**
      * <p>
-     * Retrieves the user ID associated with the given user
+     * Retrieves the user id associated with the given user
      * </p>
      *
-     * @param user The user object for which to retrieve the user id
+     * @param user Refers the user for which to retrieve the user id
      * @return Returns user id if found, or null if not found or an error occurs
      */
     public Long getUserId(final User user) {

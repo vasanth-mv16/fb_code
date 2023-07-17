@@ -16,6 +16,7 @@ public class UserActivator {
      * <p>
      * Main entry of the facebook application
      * </p>
+     *
      * @param args Refers command-line arguments to the facebook application
      */
     public static void main(final String[] args) {

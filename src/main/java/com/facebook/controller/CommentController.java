@@ -19,7 +19,7 @@ public class CommentController {
 
     /**
      * <p>
-     * Default constructor for comment controller
+     * Enables the creation of only one object at a time
      * </p>
      */
     private CommentController() {
@@ -27,10 +27,10 @@ public class CommentController {
 
     /**
      * <p>
-     * Gets the instance of comment controller
+     * Gets the instance of the comment controller
      * </p>
      *
-     * @return Returns the singleton instance of the comment controller class.
+     * @return Returns the instance of the comment controller
      */
     public static CommentController getInstance() {
         if (null == commentController) {

@@ -19,7 +19,7 @@ public class Comment {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -27,7 +27,7 @@ public class Comment {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(final Long userId) {
         this.userId = userId;
     }
 
@@ -35,7 +35,7 @@ public class Comment {
         return postId;
     }
 
-    public void setPostId(Long postId) {
+    public void setPostId(final Long postId) {
         this.postId = postId;
     }
 
@@ -43,7 +43,7 @@ public class Comment {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 

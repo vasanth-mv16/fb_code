@@ -17,18 +17,23 @@ public class AuthenticationController {
     private static AuthenticationController authenticationController;
     private static final AuthenticationService AUTHENTICATION_SERVICE_IMPL = new AuthenticationServiceImpl();
 
+    /**
+     * <p>
+     * Enables the creation of only one object at a time
+     * </p>
+     */
     private AuthenticationController() {
     }
 
     /**
      * <p>
-     * Gets the instance of user controller
+     * Gets the instance of the authentication controller
      * </p>
      *
-     * @return Returns the singleton instance of the user authentication controller class
+     * @return Returns the instance of the authentication controller
      */
     public static AuthenticationController getInstance() {
-        if(null == authenticationController) {
+        if (null == authenticationController) {
             authenticationController = new AuthenticationController();
         }
 

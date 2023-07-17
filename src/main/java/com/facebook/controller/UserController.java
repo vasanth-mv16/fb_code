@@ -19,7 +19,7 @@ public class UserController {
 
     /**
      * <p>
-     * Default constructor for user controller
+     * Enables the creation of only one object at a time
      * </p>
      */
     private UserController() {
@@ -27,10 +27,10 @@ public class UserController {
 
     /**
      * <p>
-     * Gets the instance of user controller
+     * Gets the instance of the user controller
      * </p>
      *
-     * @return Returns the singleton instance of the user controller class
+     * @return Returns the instance of the controller
      */
     public static UserController getInstance() {
         if (null == userController) {

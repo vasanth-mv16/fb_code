@@ -14,7 +14,7 @@ public class LikeValidation {
 
     /**
      * <p>
-     * Default constructor for like validation
+     * Enables the creation of only one object at a time
      * </p>
      */
     private LikeValidation() {}
@@ -24,7 +24,7 @@ public class LikeValidation {
      * Gets the instance of the like validation
      * </p>
      *
-     * @return Returns the singleton instance of the like validation class
+     * @return Returns the instance of the like validation class
      */
     public static LikeValidation getInstance() {
         if(null == likeValidation) {

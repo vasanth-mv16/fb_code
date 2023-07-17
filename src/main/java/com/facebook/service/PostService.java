@@ -16,7 +16,7 @@ public interface PostService {
 
     /**
      * <p>
-     * Checks if the post details are created, and adds the post.
+     * Checks if the post details are created, and adds the post
      * </p>
      *
      * @param post Refers {@link Post} to add
@@ -26,7 +26,7 @@ public interface PostService {
 
     /**
      * <p>
-     * Retrieves the collection of post details.
+     * Retrieves the collection of post details
      * </p>
      *
      * @return The collection of posts
@@ -35,7 +35,7 @@ public interface PostService {
 
     /**
      * <p>
-     * Retrieves the post details using the post id.
+     * Retrieves the post details using the post id
      * </p>
      *
      * @param id Represents the id of the post to retrieve
@@ -45,7 +45,7 @@ public interface PostService {
 
     /**
      * <p>
-     * Checks if the post details are updated.
+     * Checks if the post details are updated
      * </p>
      *
      * @param post Refers {@link Post} to update

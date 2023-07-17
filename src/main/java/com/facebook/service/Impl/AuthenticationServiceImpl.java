@@ -29,10 +29,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     /**
      * <p>
-     * Gets the instance of Authentication service implementation
+     * Gets the instance of the authentication service implementation
      * </p>
      *
-     * @return Returns the singleton instance of the Authentication service implementation class
+     * @return Returns the instance of the authentication implementation
      */
     public static AuthenticationService getInstance() {
         if (null == authenticationServiceImpl) {
@@ -85,7 +85,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * @return Returns the id of the user
      */
     @Override
-    public Long getUserId(User user) {
+    public Long getUserId(final User user) {
         for (final User existingUser : USER_LIST) {
 
             if (existingUser.getName().equals(user.getName())) {

@@ -1,5 +1,6 @@
 package com.facebook.view;
 
+import com.facebook.customException.InvalidNumberFormat;
 import com.facebook.model.User;
 import com.facebook.model.UserBuilder;
 
@@ -12,7 +13,7 @@ import com.facebook.model.UserBuilder;
  * @version 1.0
  */
 public class UserView extends CommonView {
-    private static final AuthenticationView AUTHENTICATION_VIEW = AuthenticationView.getInstance();
+    private static final AuthenticationView authenticationView = AuthenticationView.getInstance();
     private static UserView userView;
     private static Long id = 1L;
 
@@ -62,7 +63,7 @@ public class UserView extends CommonView {
         final String email = SCANNER.nextLine().trim();
 
         if (email.contains("$")) {
-            AUTHENTICATION_VIEW.displayMenu();
+            authenticationView.displayMenu();
         }
 
         if (userValidation.validateEmail(email)) {
@@ -87,7 +88,7 @@ public class UserView extends CommonView {
         final String mobileNumber = SCANNER.nextLine().trim();
 
         if (mobileNumber.contains("$")) {
-            AUTHENTICATION_VIEW.displayMenu();
+            authenticationView.displayMenu();
         }
 
         if (userValidation.validateMobileNumber(mobileNumber)) {
@@ -112,7 +113,7 @@ public class UserView extends CommonView {
         final String name = SCANNER.nextLine().trim();
 
         if (name.contains("$")) {
-            AUTHENTICATION_VIEW.displayMenu();
+            authenticationView.displayMenu();
         }
 
         if (userValidation.validateName(name)) {
@@ -136,7 +137,7 @@ public class UserView extends CommonView {
         final String password = SCANNER.nextLine().trim();
 
         if (password.contains("$")) {
-            AUTHENTICATION_VIEW.displayMenu();
+            authenticationView.displayMenu();
         }
 
         if (userValidation.validatePassword(password)) {
@@ -161,7 +162,7 @@ public class UserView extends CommonView {
         final String dateOfBirth = SCANNER.nextLine().trim();
 
         if (dateOfBirth.contains("$")) {
-            AUTHENTICATION_VIEW.displayMenu();
+            authenticationView.displayMenu();
         }
 
         if (userValidation.validateDateOfBirth(dateOfBirth)) {
@@ -208,8 +209,8 @@ public class UserView extends CommonView {
             if (userValidation.validateChoice(String.valueOf(choice))) {
                 return choice;
             }
-        } catch (final NumberFormatException exception) {
-            System.out.println("PLEASE ENTER AN INTEGER");
+        } catch (NumberFormatException exception) {
+            throw new InvalidNumberFormat("PLEASE ENTER AN INTEGER");
         }
 
         return getChoiceAndValidate();
@@ -217,7 +218,7 @@ public class UserView extends CommonView {
 
     /**
      * <p>
-     * Gets the user id information
+     * Gets the user id and validate
      * </p>
      *
      * @return Returns the user id of the user
@@ -230,8 +231,8 @@ public class UserView extends CommonView {
             if (userValidation.validateUserId(String.valueOf(userId))) {
                 return userId;
             }
-        } catch (final NumberFormatException exception) {
-            System.out.println("PLEASE ENTER AN INTEGER");
+        } catch (NumberFormatException exception) {
+            throw new InvalidNumberFormat("PLEASE ENTER AN INTEGER");
         }
 
         return getIdAndValidate();
@@ -312,7 +313,6 @@ public class UserView extends CommonView {
         user.setPassword(userValidation.validateAccess(SCANNER.nextLine()) ? getPasswordAndValidate() : existingUser.getPassword());
         System.out.println("DO YOU WANT TO EDIT NAME, PRESS 'YES' OR 'Y' AND DON'T WANT TO EDIT PRESS ANY KEY ");
         user.setMobileNumber(userValidation.validateAccess(SCANNER.nextLine()) ? getMobileNumberAndValidate() : existingUser.getMobileNumber());
-
         System.out.println(userController.update(user.build()) ? "Account Updated Successfully" : "Not Successful");
     }
 
@@ -338,7 +338,7 @@ public class UserView extends CommonView {
     private void delete() {
         if (userController.delete(getIdAndValidate())) {
             System.out.println("SUCCESSFULLY DELETED");
-            AUTHENTICATION_VIEW.displayMenu();
+            authenticationView.displayMenu();
         } else {
             System.out.println("NOT DELETED");
         }
@@ -353,7 +353,7 @@ public class UserView extends CommonView {
         System.out.println("DO YOU WANT TO LOGOUT?,CLICK YES AND OTHERWISE CLICK ANY KEY FOR MENU OPTIONS");
 
         if (userValidation.validateAccess(SCANNER.nextLine())) {
-            AUTHENTICATION_VIEW.displayMenu();
+            authenticationView.displayMenu();
         }
     }
 }

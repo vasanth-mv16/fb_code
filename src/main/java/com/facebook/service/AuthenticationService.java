@@ -2,6 +2,14 @@ package com.facebook.service;
 
 import com.facebook.model.User;
 
+/**
+ * <p>
+ * Provides a service for authentication
+ * </p>
+ *
+ * @author vasanth
+ * @version 1.0
+ */
 public interface AuthenticationService {
 
     /**

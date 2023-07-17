@@ -14,7 +14,7 @@ public class CommentValidation {
 
     /**
      * <p>
-     * Default constructor for comment validation
+     * Enables the creation of only one object at a time
      * </p>
      */
     private CommentValidation() {}
@@ -24,7 +24,7 @@ public class CommentValidation {
      * Gets the instance of the comment validation
      * </p>
      *
-     * @return Returns the singleton instance of the comment validation class
+     * @return Returns the instance of the comment validation class
      */
     public static CommentValidation getInstance() {
         if(null == commentValidation) {

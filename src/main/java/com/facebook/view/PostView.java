@@ -1,6 +1,7 @@
 package com.facebook.view;
 
 import com.facebook.controller.PostController;
+import com.facebook.customException.InvalidNumberFormat;
 import com.facebook.model.Post;
 import com.facebook.model.PostBuilder;
 import com.facebook.view.validation.PostValidation;
@@ -33,7 +34,6 @@ public class PostView extends CommonView {
      * </p>
      */
     private PostView() {
-
         userView = UserView.getInstance();
         likeView = LikeView.getInstance();
         commentView = CommentView.getInstance();
@@ -59,12 +59,12 @@ public class PostView extends CommonView {
 
     /**
      * <p>
-     * Gets the post id detail
+     * Gets the post id and validate
      * </p>
      *
      * @return Returns the post id of the user
      */
-    public Long getPostId() {
+    public Long getPostIdAndValidate() {
         try {
             System.out.println("ENTER THE POST ID:");
             final Long postId = Long.valueOf(SCANNER.nextLine());
@@ -72,11 +72,11 @@ public class PostView extends CommonView {
             if (postValidation.validatePostId(String.valueOf(postId))) {
                 return postId;
             }
-        } catch (final NumberFormatException exception) {
-            System.out.println("PLEASE ENTER AN INTEGER");
+        } catch (NumberFormatException exception) {
+            throw new InvalidNumberFormat("PLEASE ENTER AN INTEGER");
         }
 
-        return getPostId();
+        return getPostIdAndValidate();
     }
 
     /**
@@ -107,7 +107,7 @@ public class PostView extends CommonView {
 
     /**
      * <p>
-     * Shows the menu details for the user to post and edit
+     * Shows the menu details for the user to post, like, comment and edit
      * </p>
      *
      * @param userId Refer the user id for the post
@@ -176,10 +176,10 @@ public class PostView extends CommonView {
 
     /**
      * <p>
-     * Generates id for the user, post, like, comment
+     * Generates id for the post
      * </p>
      *
-     * @return Returns the id
+     * @return Returns the id of the post
      */
     private Long getPostIdGenerate() {
         return id++;
@@ -206,7 +206,7 @@ public class PostView extends CommonView {
      * @return Returns {@link Post} of the user
      */
     private Post get() {
-        final Post post = postController.get(getPostId());
+        final Post post = postController.get(getPostIdAndValidate());
 
         System.out.println(post);
 
@@ -216,7 +216,6 @@ public class PostView extends CommonView {
 
         return post;
     }
-
 
     /**
      * <p>
@@ -248,6 +247,6 @@ public class PostView extends CommonView {
      * </p>
      */
     private void delete() {
-        System.out.println(postController.delete(getPostId()) ? "SUCCESSFULLY DELETED" : "NOT DELETED");
+        System.out.println(postController.delete(getPostIdAndValidate()) ? "SUCCESSFULLY DELETED" : "NOT DELETED");
     }
 }

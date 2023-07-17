@@ -21,7 +21,7 @@ public class LikeController {
 
     /**
      * <p>
-     * Default constructor for like controller
+     * Enables the creation of only one object at a time
      * </p>
      */
     private LikeController() {
@@ -29,10 +29,10 @@ public class LikeController {
 
     /**
      * <p>
-     * Gets the instance of like controller
+     * Gets the instance of the like controller
      * </p>
      *
-     * @return Returns the singleton instance of the like controller class
+     * @return Returns the instance of the like controller
      */
     public static LikeController getInstance() {
         if (null == likeController) {

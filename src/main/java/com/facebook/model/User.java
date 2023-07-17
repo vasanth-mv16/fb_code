@@ -46,7 +46,7 @@ public class User {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(final Gender gender) {
         this.gender = gender;
     }
 
@@ -58,7 +58,7 @@ public class User {
         return id;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -66,7 +66,7 @@ public class User {
         return name;
     }
 
-    public void setMobileNumber(String mobileNumber) {
+    public void setMobileNumber(final String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
@@ -74,7 +74,7 @@ public class User {
         return mobileNumber;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -82,7 +82,7 @@ public class User {
         return email;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -90,7 +90,7 @@ public class User {
         return password;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(final String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

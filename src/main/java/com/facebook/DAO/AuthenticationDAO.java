@@ -2,6 +2,14 @@ package com.facebook.DAO;
 
 import com.facebook.model.User;
 
+/**
+ * <p>
+ * Provides a service DAO for authentication
+ * </p>
+ *
+ * @author vasanth
+ * @version 1.1
+ */
 public interface AuthenticationDAO {
 
     /**

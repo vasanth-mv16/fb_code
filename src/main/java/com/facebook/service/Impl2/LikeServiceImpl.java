@@ -25,10 +25,10 @@ public class LikeServiceImpl implements LikeService {
      * </p>
      *
      * @param like Refer {@link Like} to create
-     * @return True if the like is created, otherwise false
+     * @return true, if the like is created, otherwise false
      */
     @Override
-    public boolean create(Like like) {
+    public boolean create(final Like like) {
         return LIKE_DAO_IMPL.create(like);
     }
 
@@ -41,7 +41,7 @@ public class LikeServiceImpl implements LikeService {
      * @return Collection of likes
      */
     @Override
-    public Collection<Like> get(Long userId) {
+    public Collection<Like> get(final Long userId) {
         return LIKE_DAO_IMPL.get(userId);
     }
 
@@ -54,7 +54,7 @@ public class LikeServiceImpl implements LikeService {
      * @return Gets the like count of the user
      */
     @Override
-    public Long getCount(Long postId) {
+    public Long getCount(final Long postId) {
         return LIKE_DAO_IMPL.getCount(postId);
     }
 
@@ -64,10 +64,10 @@ public class LikeServiceImpl implements LikeService {
      * </p>
      *
      * @param likeId Refers the id for unlike the post
-     * @return True if the like is unliked, otherwise false
+     * @return true, if the like is unliked, otherwise false
      */
     @Override
-    public boolean delete(Long likeId) {
+    public boolean delete(final Long likeId) {
         return LIKE_DAO_IMPL.delete(likeId);
     }
 }

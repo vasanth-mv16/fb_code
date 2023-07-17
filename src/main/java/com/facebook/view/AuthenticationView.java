@@ -34,7 +34,7 @@ public class AuthenticationView extends CommonView {
      * Gets the instance of the Authentication view
      * </p>
      *
-     * @return Returns the singleton instance of the Authentication view class.
+     * @return Returns the instance of the Authentication view class.
      */
     public static AuthenticationView getInstance() {
         if (null == authenticationView) {

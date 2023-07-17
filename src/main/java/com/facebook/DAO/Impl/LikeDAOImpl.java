@@ -1,9 +1,10 @@
 package com.facebook.DAO.Impl;
 
 import com.facebook.DAO.LikeDAO;
-import com.facebook.DAOConnection.JDBCConnection;
+import com.facebook.DAOConnection.DatabaseAccessConnection;
 import com.facebook.model.Like;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class LikeDAOImpl implements LikeDAO {
 
     /**
      * <p>
-     * Default constructor for like DAO
+     * Enables the creation of only one object at a time
      * </p>
      */
     private LikeDAOImpl() {
@@ -56,14 +57,18 @@ public class LikeDAOImpl implements LikeDAO {
     public boolean create(final Like like) {
         final String sql = "insert into likes(user_id, post_id) values (?,?);";
 
-        try (PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = DatabaseAccessConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, like.getUserId());
             preparedStatement.setLong(2, like.getPostId());
             preparedStatement.executeUpdate();
+            connection.commit();
+            DatabaseAccessConnection.releaseConnection(connection);
 
             return true;
-        } catch (final Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 
@@ -83,8 +88,10 @@ public class LikeDAOImpl implements LikeDAO {
         final Collection<Like> likes = new ArrayList<>();
         final String sql = "select * from likes where user_id = ?";
 
-        try (final PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = DatabaseAccessConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, userId);
             final ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -95,8 +102,10 @@ public class LikeDAOImpl implements LikeDAO {
                 like.setPostId(resultSet.getLong("post_id"));
                 like.setId(resultSet.getLong("id"));
                 likes.add(like);
+                connection.commit();
+                DatabaseAccessConnection.releaseConnection(connection);
             }
-        } catch (final Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 
@@ -115,8 +124,10 @@ public class LikeDAOImpl implements LikeDAO {
     public Long getCount(final Long postId) {
         final String sql = "select post_id, count(post_id) as post_count from likes where post_id = ? group by post_id;";
 
-        try (final PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = DatabaseAccessConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, postId);
             final ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -125,7 +136,9 @@ public class LikeDAOImpl implements LikeDAO {
 
                 like.setPostId(resultSet.getLong("post_id"));
             }
-        } catch (final Exception exception) {
+            connection.commit();
+            DatabaseAccessConnection.releaseConnection(connection);
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 
@@ -141,16 +154,20 @@ public class LikeDAOImpl implements LikeDAO {
      * @return True, if the post was unliked, otherwise false
      */
     @Override
-    public boolean delete(Long likeId) {
+    public boolean delete(final Long likeId) {
         final String sql = "delete from likes where id = ?";
 
-        try (final PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = DatabaseAccessConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, likeId);
             preparedStatement.executeUpdate();
+            connection.commit();
+            DatabaseAccessConnection.releaseConnection(connection);
 
             return true;
-        } catch (final Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 

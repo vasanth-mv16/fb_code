@@ -14,7 +14,7 @@ public class PostValidation {
 
     /**
      * <p>
-     * Default constructor for post validation
+     * Enables the creation of only one object at a time
      * </p>
      */
     private PostValidation() {
@@ -25,7 +25,7 @@ public class PostValidation {
      * Gets the instance of the post validation
      * </p>
      *
-     * @return Returns the singleton instance of the post validation class
+     * @return Returns the instance of the post validation class
      */
     public static PostValidation getInstance() {
         if (null == postValidation) {

@@ -1,9 +1,10 @@
 package com.facebook.DAO.Impl;
 
 import com.facebook.DAO.PostDAO;
-import com.facebook.DAOConnection.JDBCConnection;
+import com.facebook.DAOConnection.DatabaseAccessConnection;
 import com.facebook.model.Post;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class PostDAOImpl implements PostDAO {
 
     /**
      * <p>
-     * Default constructor for post DAO
+     * Enables the creation of only one object at a time
      * </p>
      */
     private PostDAOImpl() {
@@ -56,16 +57,20 @@ public class PostDAOImpl implements PostDAO {
     public boolean create(final Post posts) {
         final String sql = "insert into posts(user_id, caption, location, uploadtime) values (?,?,?,?);";
 
-        try (PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = DatabaseAccessConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, posts.getUserId());
             preparedStatement.setString(2, posts.getCaption());
             preparedStatement.setString(3, posts.getLocation());
             preparedStatement.setTimestamp(4, posts.getUploadTime());
             preparedStatement.executeUpdate();
+            connection.commit();
+            DatabaseAccessConnection.releaseConnection(connection);
 
             return true;
-        } catch (final Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 
@@ -85,8 +90,10 @@ public class PostDAOImpl implements PostDAO {
         final Collection<Post> POSTS = new ArrayList<>();
         final String sql = "select * from posts where user_id = ?";
 
-        try (final PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = DatabaseAccessConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, user_id);
             final ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -100,7 +107,9 @@ public class PostDAOImpl implements PostDAO {
                 post.setUploadTime(resultSet.getTimestamp("uploadtime"));
                 POSTS.add(post);
             }
-        } catch (final Exception exception) {
+            connection.commit();
+            DatabaseAccessConnection.releaseConnection(connection);
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 
@@ -119,8 +128,10 @@ public class PostDAOImpl implements PostDAO {
     public Post get(final Long id) {
         final String sql = "select * from posts where id = ?";
 
-        try (final PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = DatabaseAccessConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, id);
             final ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -132,10 +143,12 @@ public class PostDAOImpl implements PostDAO {
                 post.setCaption(resultSet.getString("caption"));
                 post.setLocation(resultSet.getString("location"));
                 post.setUploadTime(resultSet.getTimestamp("uploadtime"));
+                connection.commit();
+                DatabaseAccessConnection.releaseConnection(connection);
 
                 return post;
             }
-        } catch (final Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 
@@ -154,16 +167,20 @@ public class PostDAOImpl implements PostDAO {
     public boolean update(final Post post) {
         final String sql = "update posts set caption = ?, location = ? where id = ? AND user_id = ?";
 
-        try (final PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = DatabaseAccessConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setString(1, post.getCaption());
             preparedStatement.setString(2, post.getLocation());
             preparedStatement.setLong(3, post.getId());
             preparedStatement.setLong(4, post.getUserId());
             preparedStatement.executeUpdate();
+            connection.commit();
+            DatabaseAccessConnection.releaseConnection(connection);
 
             return true;
-        } catch (final Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 
@@ -182,13 +199,17 @@ public class PostDAOImpl implements PostDAO {
     public boolean delete(final Long id) {
         final String sql = "delete from posts where id = ?";
 
-        try (final PreparedStatement preparedStatement = JDBCConnection.getConnection().prepareStatement(sql)) {
+        try (final Connection connection = DatabaseAccessConnection.getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
+            connection.commit();
+            DatabaseAccessConnection.releaseConnection(connection);
 
             return true;
-        } catch (final Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 

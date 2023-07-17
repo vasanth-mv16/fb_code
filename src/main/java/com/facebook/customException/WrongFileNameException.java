@@ -2,11 +2,12 @@ package com.facebook.customException;
 
 /**
  * <p>
- * Adds Custom Exception
+ * Shows Exception, when file name does not exits
  * </p>
  */
 public class WrongFileNameException extends Exception {
-    public WrongFileNameException(String errorMessage) {
+    public WrongFileNameException(final String errorMessage) {
         super(errorMessage);
     }
 }
+

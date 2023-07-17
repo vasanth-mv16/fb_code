@@ -21,7 +21,7 @@ public class PostController {
 
     /**
      * <p>
-     * Default constructor for post controller
+     * Enables the creation of only one object at a time
      * </p>
      */
     private PostController() {
@@ -29,10 +29,10 @@ public class PostController {
 
     /**
      * <p>
-     * Gets the instance of post controller
+     * Gets the instance of the post controller
      * </p>
      *
-     * @return Returns the singleton instance of the post controller class
+     * @return Returns the instance of the controller
      */
     public static PostController getInstance() {
         if (null == postController) {

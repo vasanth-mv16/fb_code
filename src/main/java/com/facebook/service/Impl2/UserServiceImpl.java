@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
      * @return True if the user details are updated, false otherwise
      */
     @Override
-    public boolean update(User user) {
+    public boolean update(final User user) {
         return USER_DAO_IMPL.update(user);
     }
 
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
      * @return True if the user details are successfully deleted, false otherwise
      */
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(final Long id) {
         return USER_DAO_IMPL.delete(id);
     }
 
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
      * @return Returns {@link User} details
      */
     @Override
-    public User get(Long id) {
+    public User get(final Long id) {
         return USER_DAO_IMPL.get(id);
     }
 }

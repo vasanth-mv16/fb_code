@@ -1,6 +1,7 @@
 package com.facebook.view;
 
 import com.facebook.controller.CommentController;
+import com.facebook.customException.InvalidNumberFormat;
 import com.facebook.model.Comment;
 import com.facebook.view.validation.CommentValidation;
 
@@ -27,7 +28,6 @@ public class CommentView extends CommonView {
      * </p>
      */
     private CommentView() {
-
         commentController = CommentController.getInstance();
         userView = UserView.getInstance();
         postView = PostView.getInstance();
@@ -39,7 +39,7 @@ public class CommentView extends CommonView {
      * Gets the instance of the comment view
      * </p>
      *
-     * @return Returns the singleton instance of the comment view class
+     * @return Returns the instance of the comment view class
      */
     public static CommentView getInstance() {
         if (null == commentView) {
@@ -59,6 +59,7 @@ public class CommentView extends CommonView {
     private Long getCommentIdGenerate() {
         return id++;
     }
+
     /**
      * <p>
      * Shows the menu details for the user to comment the post
@@ -98,7 +99,7 @@ public class CommentView extends CommonView {
 
         comment.setId(getCommentIdGenerate());
         comment.setUserId(userId);
-        comment.setPostId(postView.getPostId());
+        comment.setPostId(postView.getPostIdAndValidate());
         comment.setMessage(getMessage());
         System.out.println(commentController.create(comment) ? "COMMENTED" : "NOT COMMENTED");
     }
@@ -109,17 +110,17 @@ public class CommentView extends CommonView {
      * </p>
      */
     private void delete() {
-        System.out.println(commentController.delete(getCommentId()) ? "COMMENT DELETED" : "NOT DELETED");
+        System.out.println(commentController.delete(getCommentIdAndGenerate()) ? "COMMENT DELETED" : "NOT DELETED");
     }
 
     /**
      * <p>
-     * Gets the comment id detail
+     * Gets the comment id and validate
      * </p>
      *
      * @return Returns the comment id of the user
      */
-    private Long getCommentId() {
+    private Long getCommentIdAndGenerate() {
         try {
             System.out.println("ENTER THE COMMENT ID:");
             final Long commentId = Long.valueOf(SCANNER.nextLine());
@@ -127,8 +128,8 @@ public class CommentView extends CommonView {
             if (commentValidation.validateCommentId(String.valueOf(commentId))) {
                 return commentId;
             }
-        } catch (final NumberFormatException exception) {
-            System.out.println("PLEASE ENTER AN INTEGER");
+        } catch (NumberFormatException exception) {
+            throw new InvalidNumberFormat("PLEASE ENTER AN INTEGER");
         }
         return null;
     }

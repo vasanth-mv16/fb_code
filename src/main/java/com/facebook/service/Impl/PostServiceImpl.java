@@ -24,7 +24,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * <p>
-     * Default constructor for post service implementation
+     * Enables the creation of only one object at a time
      * </p>
      */
     private PostServiceImpl() {
@@ -32,10 +32,10 @@ public class PostServiceImpl implements PostService {
 
     /**
      * <p>
-     * Gets the instance of post service implementation
+     * Gets the instance of the post service implementation
      * </p>
      *
-     * @return Returns the singleton instance of the post service implementation class
+     * @return Returns the instance of the post implementation
      */
     public static PostService getInstance() {
         if (null == postServiceImpl) {
@@ -51,7 +51,7 @@ public class PostServiceImpl implements PostService {
      * @param post Refers {@link Post} to be added
      * @return True if the post is successfully added, false otherwise
      */
-    public boolean create(Post post) {
+    public boolean create(final Post post) {
         return POSTS.add(post);
     }
 
@@ -77,7 +77,7 @@ public class PostServiceImpl implements PostService {
      *
      * @return The collection of posts
      */
-    public Collection<Post> getAll(Long userId) {
+    public Collection<Post> getAll(final Long userId) {
         final Collection<Post> posts = new ArrayList<>();
 
         for (final Post existingPost : POSTS) {
@@ -122,7 +122,7 @@ public class PostServiceImpl implements PostService {
      * @return True if the post is successfully updated, false otherwise
      */
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(final Long id) {
         final Post post = get(id);
 
         if (null != post) {

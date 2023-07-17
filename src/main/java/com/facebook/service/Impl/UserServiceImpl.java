@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * <p>
-     * Default constructor for user service
+     * Enables the creation of only one object at a time
      * </p>
      */
     private UserServiceImpl() {
@@ -25,10 +25,10 @@ public class UserServiceImpl implements UserService {
 
     /**
      * <p>
-     * Gets the instance of user service implementation
+     * Gets the instance of the user service implementation
      * </p>
      *
-     * @return Returns the singleton instance of the user service implementation class.
+     * @return Returns the instance of the user implementation
      */
     public static UserService getInstance() {
         if (null == userServiceImpl) {

@@ -21,7 +21,7 @@ public class LikeServiceImpl implements LikeService {
 
     /**
      * <p>
-     * Default constructor for like service implementation
+     * Enables the creation of only one object at a time
      * </p>
      */
     private LikeServiceImpl() {
@@ -29,10 +29,10 @@ public class LikeServiceImpl implements LikeService {
 
     /**
      * <p>
-     * Gets the instance of like service implementation
+     * Gets the instance of the Like service implementation
      * </p>
      *
-     * @return Returns the singleton instance of the like service implementation class
+     * @return Returns the instance of the like implementation
      */
     public static LikeService getInstance() {
         if (null == likeServiceImpl) {
@@ -83,11 +83,11 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public boolean delete(Long likeId) {
-        final Like like = get(likeId);
-
-        if (null != like) {
-            return LIKE_LIST.remove(like);
-        }
-        return false;
+//        final Like like = get(likeId);
+//
+//        if (null != like) {
+//            return LIKE_LIST.remove(like);
+//        }
+       return false;
     }
 }
